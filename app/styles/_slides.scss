@@ -19,11 +19,31 @@
   background: transparent;
 }
 
+.image-gallery-image {
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.image-gallery-thumbnails .image-gallery-thumbnails-container {
+  transition: transform .2s ease-out;
+}
+
 .image-gallery-thumbnails-wrapper {
   position: fixed;
-  bottom: 0;
+  bottom: -80px;
   left: 0;
   right: 0;
+  transition: all .2s;
+  &:hover {
+    bottom: 0;
+  }
+}
+
+.image-gallery-thumbnail.active {
+  background: #000;
 }
 
 .image-gallery-thumbnail-inner {

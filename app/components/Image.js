@@ -15,6 +15,7 @@ export default class Image extends Component {
       this.setState({ src: canvas.toDataURL("image/jpeg") })
     }, {
       maxWidth: this.props.maxWidth,
+      maxHeight: this.props.maxHeight,
       canvas: true,
       orientation: true,
     })
@@ -26,6 +27,12 @@ export default class Image extends Component {
         src={this.state.src}
         alt={this.props.alt}
         title={this.props.title}
+        style={{
+          width: "auto",
+          height: "auto",
+          maxWidth: this.props.maxWidth,
+          maxHeight: this.props.maxHeight
+        }}
       />
     ) : null;
   }

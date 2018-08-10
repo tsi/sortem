@@ -201,6 +201,7 @@
   },
   "dependencies": {
     "blueimp-load-image": "^2.19.0",
+    "classnames": "^2.2.6",
     "devtron": "^1.4.0",
     "electron-debug": "^1.5.0",
     "electron-store": "^2.0.0",
