@@ -6,6 +6,10 @@
   video {
     max-height: 100vh;
     max-width: 100vh;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
   }
   .uploaded {
     position: absolute;
@@ -76,6 +80,9 @@
   &.active {
     background: #000;
     border-color: #337ab7;
+  }
+  &:focus {
+    outline: none;
   }
   .uploaded {
     position: absolute;

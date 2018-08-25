@@ -77,7 +77,7 @@ export default class ImageGallery extends Component {
         <div
           className="image-gallery-thumbnails-container"
           style={{
-            transform: 'translateX(-' + (this.state.current + 0.5) * 140 + 'px)'
+            transform: 'translateX(-' + (this.state.current + 0.5) * 148 + 'px)'
           }}
         >
           {this.props.images.map((item, index) =>
@@ -95,10 +95,17 @@ export default class ImageGallery extends Component {
         className={cx('image-gallery-thumbnail', {
           active: this.state.current === arrIndex
         })}
+        onClick={() => this.handleSlide(arrIndex)}
+        role="menuItem"
+        tabIndex="0"
       >
         {Math.abs(this.state.current - item.index) < 10 && (
           <Image
-            src={item.type === 'image' ? item.src : ''}
+            src={
+              item.type === 'image'
+                ? item.src
+                : 'https://cdn.pixabay.com/photo/2017/03/13/04/25/play-button-2138735_960_720.png'
+            }
             alt={item.thumbnailAlt}
             title={item.thumbnailTitle}
             maxWidth={140}

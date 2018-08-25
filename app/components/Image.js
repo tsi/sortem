@@ -28,7 +28,9 @@ export default class Image extends Component {
     this.state.loadingImage = loadImage(
       this.props.src,
       canvas => {
-        this.setState({ src: canvas.toDataURL('image/jpeg') });
+        if (typeof canvas.toDataURL === 'function') {
+          this.setState({ src: canvas.toDataURL('image/jpeg') });
+        }
       },
       {
         maxWidth: this.props.maxWidth,
