@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import Main from '../components/Main';
+import Page from '../components/Page';
 
 type Props = {};
 
@@ -8,6 +8,6 @@ export default class MainPage extends Component<Props> {
   props: Props;
 
   render() {
-    return <Main />;
+    return <Page />;
   }
 }
