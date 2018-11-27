@@ -99,7 +99,7 @@ export default class ImageGallery extends Component {
         role="menuItem"
         tabIndex="0"
       >
-        {Math.abs(this.state.current - item.index) < 10 && (
+        {Math.abs(this.state.current - arrIndex) < 10 && (
           <Image
             src={
               item.type === 'image'
