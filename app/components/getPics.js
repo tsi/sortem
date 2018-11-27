@@ -3,8 +3,8 @@
 const fs = require('electron').remote.require('fs');
 const path = require('electron').remote.require('path');
 
-const allowedExtensions = ['.gif', '.jpg', '.jpeg', '.png', '.mov', '.mp4'];
-const videoExtensions = ['.mov', '.mp4'];
+const imageExtensions = ['.gif', '.jpg', '.jpeg', '.png'];
+const videoExtensions = ['.mov', '.mp4', '.avi'];
 
 let index = 0;
 
@@ -32,7 +32,7 @@ export default function getPics(dir, done, recourse) {
           );
         } else {
           const ext = path.extname(file).toLowerCase();
-          if (allowedExtensions.indexOf(ext) > -1) {
+          if (imageExtensions.concat(videoExtensions).indexOf(ext) > -1) {
             results.push({
               src: file,
               type: videoExtensions.indexOf(ext) > -1 ? 'video' : 'image',
