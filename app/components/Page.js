@@ -92,7 +92,15 @@ export default class Page extends Component {
     } else if (e.keyCode === 40) {
       // Down arrow
       const source = this.state.images[this.state.current].src;
-      if (confirm('Really delete ' + path.basename(source) + '?')) {
+      if (this.state.images[this.state.current].uploaded) {
+        const del = this.state.destinationDir + '/' + path.basename(source);
+        fs.unlink(del, err => {
+          if (err) throw err;
+          console.log(source + ' was deleted');
+        });
+        this.state.images[this.state.current].uploaded = false;
+        this.forceUpdate();
+      } else if (confirm('Really delete ' + path.basename(source) + '?')) {
         fs.unlink(source, err => {
           if (err) throw err;
           console.log(source + ' was deleted');
