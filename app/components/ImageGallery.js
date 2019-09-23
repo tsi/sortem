@@ -51,7 +51,7 @@ export default class ImageGallery extends Component {
     return item ? (
       <div className="image-gallery-image">
         {item.type === 'video' ? (
-          <video src={item.src} title={item.originalTitle} controls />
+          <video src={item.src} title={item.originalTitle} controls autoPlay />
         ) : (
           <Image
             src={item.src}
