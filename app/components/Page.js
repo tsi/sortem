@@ -1,7 +1,7 @@
 // @flow
 import React, { Component, Fragment } from 'react';
 import { remote } from 'electron';
-import Store from 'electron-store';
+// import Store from 'electron-store';
 import cx from 'classnames';
 import getPics from './getPics';
 import ImageGallery from './ImageGallery';
@@ -11,14 +11,14 @@ import styles from './Page.scss';
 const fs = require('electron').remote.require('fs');
 const path = require('electron').remote.require('path');
 
-const store = new Store();
+// const store = new Store();
 
 export default class Page extends Component {
   constructor(props) {
     super(props);
     this.state = {
       sourceDir: '',
-      destinationDir: store.get('destinationDir') || '',
+      destinationDir: localStorage.getItem('destinationDir') || '',
       images: [],
       current: 0
     };
@@ -31,17 +31,17 @@ export default class Page extends Component {
   componentWillMount() {
     window.addEventListener('keydown', this.handleKeyDown);
 
-    if (store.get('sourceDir')) {
+    if (localStorage.getItem('sourceDir')) {
       if (confirm('Continue where we left of ?')) {
-        const lastCurrent = store.get('lastCurrent') || 0;
+        const lastCurrent = parseInt(localStorage.getItem('lastCurrent'), 10) || 0;
         this.setState({
-          sourceDir: store.get('sourceDir'),
+          sourceDir: localStorage.getItem('sourceDir'),
           current: lastCurrent
         });
-        this.handleSourceFolder([store.get('sourceDir')], lastCurrent);
+        this.handleSourceFolder([localStorage.getItem('sourceDir')], lastCurrent);
       } else {
-        store.set('sourceDir', '');
-        store.set('lastCurrent', 0);
+        localStorage.setItem('sourceDir', '');
+        localStorage.setItem('lastCurrent', 0);
       }
     }
   }
@@ -57,8 +57,8 @@ export default class Page extends Component {
       current: setCurrent || 0,
       images: []
     });
-    store.set('sourceDir', folder[0]);
-    store.set('lastCurrent', setCurrent || 0);
+    localStorage.setItem('sourceDir', folder[0]);
+    localStorage.setItem('lastCurrent', setCurrent || 0);
     const that = this;
     getPics(folder[0], (err, results) => {
       if (err) throw err;
@@ -70,7 +70,7 @@ export default class Page extends Component {
   handleDestinationFolder(folder) {
     if (!folder) return;
     this.setState({ destinationDir: folder[0] });
-    store.set('destinationDir', folder[0]);
+    localStorage.setItem('destinationDir', folder[0]);
   }
 
   handleKeyDown(e) {
@@ -114,7 +114,7 @@ export default class Page extends Component {
 
   handleSlide(currentIndex) {
     this.setState({ current: currentIndex });
-    store.set('lastCurrent', currentIndex);
+    localStorage.setItem('lastCurrent', currentIndex);
   }
 
   render() {
