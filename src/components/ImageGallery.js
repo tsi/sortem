@@ -68,10 +68,11 @@ export default class ImageGallery extends Component {
   }
 
   renderThumbs() {
+    const { images, loaded } = this.props;
     return (
       <div className="image-gallery-thumbnails">
         <div className="image-gallery-count">
-          {this.state.current + 1} of {this.props.images.length}
+          {this.state.current + 1} of {images.length} {loaded && `(loaded ${loaded})`}
         </div>
         <div
           className="image-gallery-thumbnails-container"
@@ -79,7 +80,7 @@ export default class ImageGallery extends Component {
             transform: 'translateX(-' + (this.state.current + 0.5) * 148 + 'px)'
           }}
         >
-          {this.props.images.map((item, index) =>
+          {images.map((item, index) =>
             this.renderLazyThumb(item, index)
           )}
         </div>

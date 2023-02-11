@@ -6,9 +6,8 @@
   "private": true,
   "main": "src/electron/main.js",
   "scripts": {
-    "sortem": "npm start",
-    "dev": "APP_DEV=true npm start",
-    "start": "concurrently -k \"BROWSER=none react-scripts start\" \"npm:electron\"",
+    "start": "APP_DEV=true npm run sortem",
+    "sortem": "concurrently -k \"BROWSER=none react-scripts start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
     "build": "react-scripts build",
     "test": "react-scripts test",

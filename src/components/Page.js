@@ -14,6 +14,7 @@ export default class Page extends Component {
       sourceDir: '',
       destinationDir: localStorage.getItem('destinationDir') || '',
       images: [],
+      loaded: 0,
       current: 0
     };
     this.handleSourceFolder = this.handleSourceFolder.bind(this);
@@ -61,18 +62,25 @@ export default class Page extends Component {
   }
 
   async readImages() {
-    const { images } = this.state;
-    const imagesWithData = [];
+    let images = [...this.state.images];
 
     console.log('FOUND: ', images);
 
-    for (const image of images) {
-      console.log('READING: ' + image.path.replace(/^.*[\\\/]/, ''));
-      const imageData = await window.remote.readImage(image, window.innerWidth, window.innerHeight);
-      imagesWithData.push(imageData);
+    for (const i in images) {
+      const image = images[i];
+
+      // ToDo: call this in batches, and only when required
+
+      console.log(`READING: (${i}) ${image.path.replace(/^.*[\\\/]/, '')}`);
+      images[i] = await window.remote.readImage(image, window.innerWidth, window.innerHeight);
+
+      // Update the state after getting first 10 and then every 50
+      if (i === 10 || i % 50 === 0) {
+        this.setState({ images, loaded: i });
+      }
     }
 
-    this.setState({ images: imagesWithData });
+    this.setState({ images, loaded: 0 });
   }
 
   handleDestinationFolder(folder) {
@@ -157,6 +165,7 @@ export default class Page extends Component {
             images={this.state.images}
             startIndex={this.state.current || 0}
             onSlide={this.handleSlide}
+            loaded={this.state.loaded}
           />
         )}
       </Fragment>
