@@ -50,7 +50,7 @@ export default class ImageGallery extends Component {
     return item && item.src ? (
       <div className="image-gallery-image">
         {item.type === 'video' ? (
-          <video src={item.src} title={item.originalTitle} controls autoPlay />
+          <video src={'file://' + item.src} title={item.originalTitle} controls autoPlay />
         ) : (
           <Image
             src={item.src}
@@ -72,7 +72,7 @@ export default class ImageGallery extends Component {
     return (
       <div className="image-gallery-thumbnails">
         <div className="image-gallery-count">
-          {this.state.current + 1} of {images.length} {loaded && `(loaded ${loaded})`}
+          {this.state.current + 1} of {images.length} {loaded > 0 && `(loaded ${loaded})`}
         </div>
         <div
           className="image-gallery-thumbnails-container"

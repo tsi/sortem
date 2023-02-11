@@ -3,13 +3,14 @@ const path = require('path');
 
 const initApi = require('./api');
 
-const isDev = process.env.APP_DEV ? (process.env.APP_DEV.trim() == 'true') : false;
+const isDev = process.env.APP_DEV ? process.env.APP_DEV.trim() == 'true' : false;
 
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
     ...(isDev ? { width: 1200, height: 800 } : { fullscreen: true }),
     webPreferences: {
+      webSecurity: false,
       preload: path.join(__dirname, 'preload.js')
     }
   });
